@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+</head>
+<body>
+    <label>Atleta</label> <br>
+    Id: <label th:text="${atleta.getId()}"></label><br>
+    Nome:  <label th:text="${atleta.getNome()}"></label><br>
+    Idade:  <label th:text="${atleta.getIdade()}"></label><br>
+    Peso:  <label th:text="${atleta.getPeso()}"></label><br>
+    Altura:  <label th:text="${atleta.getAltura()}"></label><br>    
+</body>
+</html>
