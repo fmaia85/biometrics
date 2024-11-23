@@ -8,10 +8,13 @@
 <body>
     <h1>Digite os dados do atleta:</h1>
     <form action="" method="post">
-        Nome: <input name="nome"> <br>
-        Idade: <input name="idade"> <br>
-        Peso: <input name="peso"> <br>
-        Altura: <input name="altura"> <br>
+        <input th:if="${atleta != null}" type="hidden" name="_method" value="put">
+        <input type="hidden" name="id" th:value="${atleta?.id}">
+
+        Nome: <input name="nome" th:value="${atleta?.getNome()}"> <br>
+        Idade: <input name="idade" th:value="${atleta?.getIdade()}"> <br>
+        Peso: <input name="peso" th:value="${atleta?.getPeso()}"> <br>
+        Altura: <input name="altura" th:value="${atleta?.getAltura()}"> <br>
         <input type="submit" value="enviar">
     </form>
 </body>

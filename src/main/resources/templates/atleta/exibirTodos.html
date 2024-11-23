@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exibir Todos</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>NOME</th>
+            <th>IDADE</th>
+            <th>PESO</th>
+            <th>ALTURA</th>
+            <th>AÇÕES</th>
+        </thead>
+        <tbody>
+            <tr th:each="atleta : ${lista}">
+                <td th:text="${atleta.getNome()}"></td>
+                <td th:text="${atleta.getIdade()}"></td>
+                <td th:text="${atleta.getPeso()}"></td>
+                <td th:text="${atleta.getAltura()}"></td>
+                <td>
+                    <form action="" method="post">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="id" th:value="${atleta.getId()}">
+                        <input type="submit" value="Deletar">
+                    </form>
+
+                    <a th:href="@{/atleta/cadastrar?id={id}(id=${atleta.getId()})}">Editar</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</body>
+</html>
