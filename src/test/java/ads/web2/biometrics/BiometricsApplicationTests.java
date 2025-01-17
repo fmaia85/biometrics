@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import ads.web2.biometrics.model.Atleta;
 import ads.web2.biometrics.model.AtletaRepository;
-import ads.web2.biometrics.model.Equipe;
-import ads.web2.biometrics.model.EquipeRepository;
+import ads.web2.biometrics.model.equipe.Equipe;
+import ads.web2.biometrics.model.equipe.EquipeRepository;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest

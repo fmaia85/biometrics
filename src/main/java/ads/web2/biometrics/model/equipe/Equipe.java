@@ -1,7 +1,8 @@
-package ads.web2.biometrics.model;
+package ads.web2.biometrics.model.equipe;
 
 import java.util.List;
 
+import ads.web2.biometrics.model.Atleta;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

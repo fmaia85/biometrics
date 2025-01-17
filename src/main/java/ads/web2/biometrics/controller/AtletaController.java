@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ads.web2.biometrics.model.Atleta;
 import ads.web2.biometrics.model.AtletaRepository;
+import ads.web2.biometrics.model.equipe.Equipe;
+import ads.web2.biometrics.model.equipe.EquipeRepository;
 import jakarta.transaction.Transactional;
 
 @Controller
@@ -23,6 +25,8 @@ public class AtletaController {
     
     @Autowired
     private AtletaRepository atletaRepo;
+    @Autowired
+    private EquipeRepository equipeRepo;
     
     @GetMapping("cadastrar")
     public ModelAndView cadastrarAtleta(Long id){
@@ -31,16 +35,21 @@ public class AtletaController {
             Atleta a = atletaRepo.getReferenceById(id);
             mv.addObject("atleta", a);
         }
+        List<Equipe> equipes = equipeRepo.findAll();
+        mv.addObject("equipes", equipes);
         mv.setViewName("atleta/cadastrar");
         return mv;
     }
 
     @PostMapping("cadastrar")
-    @ResponseBody
-    public String salvar(String nome, Integer idade, Double peso, Double altura){
+    public String salvar(String nome, Integer idade, Double peso, Double altura, Long equipe){
         Atleta a = new Atleta(nome, idade, peso, altura);
+        if(equipe != 0){
+            Equipe e = equipeRepo.getReferenceById(equipe);
+            a.setEquipe(e);
+        }
         atletaRepo.save(a);
-        return "Foi criado o atleta com id: " + a.getId();
+        return "redirect:/atleta";
     }
 
     @GetMapping("consultar")
@@ -69,12 +78,16 @@ public class AtletaController {
 
     @PutMapping("cadastrar")
     @Transactional
-    public String atualizarAtleta(Long id, String nome, Integer idade, Double peso, Double altura){
+    public String atualizarAtleta(Long id, String nome, Integer idade, Double peso, Double altura, Long equipe){
         Atleta a = atletaRepo.getReferenceById(id);
         a.setNome(nome);
         a.setIdade(idade);
         a.setPeso(peso);
         a.setAltura(altura);
+        if(equipe != 0){
+            Equipe e = equipeRepo.getReferenceById(equipe);
+            a.setEquipe(e);
+        }
         return "redirect:/atleta";
     }
 

@@ -1,5 +1,6 @@
 package ads.web2.biometrics.model;
 
+import ads.web2.biometrics.model.equipe.Equipe;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
