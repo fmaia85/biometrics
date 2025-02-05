@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import ads.web2.biometrics.service.UserDetailsServiceImpl;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -33,31 +35,25 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService inMemoryUserDetailsService(){
-        UserDetails user1 = User.builder()
-                            .username("user")
-                            .password("1234")
-                            .roles("USER")
-                            .passwordEncoder(
-                                (password) -> passwordEncoder().encode(password))
-                            .build();
-        return new InMemoryUserDetailsManager(user1);
+        return new UserDetailsServiceImpl();
     }
 
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable).
-             authorizeHttpRequests(
-                (auth) -> {
-                    auth.anyRequest().authenticated();
-                }
-             ).formLogin(
+                authorizeHttpRequests(
+                (authorize) -> authorize
+                        .requestMatchers("/usuario/cadastro").permitAll()
+                        .requestMatchers("/usuario/salvar").permitAll()
+                        .anyRequest().authenticated()
+        ).formLogin(
                 form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/atleta")
                         .permitAll()
-             );
+        );
         return http.build();
     }
 }
